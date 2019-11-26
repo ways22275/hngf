@@ -2,17 +2,15 @@ package com.example.sideproject.data.remote
 
 import com.example.sideproject.BuildConfig
 import com.example.sideproject.utils.Constant.DOMAIN
-import com.example.sideproject.utils.Constant.HEADER_ACCEPT
 import com.example.sideproject.utils.Constant.HEADER_TOKEN
-import com.example.sideproject.utils.Constant.HEADER_TYPE
-import com.example.sideproject.utils.Constant.HEADER_TYPE_VAL
 import com.example.sideproject.utils.SharePreferenceManager.getToken
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
-class ServiceClient {
+object ServiceClient {
 
     @Volatile
     private var instance: Service? = null
@@ -35,8 +33,6 @@ class ServiceClient {
                             if (token.isNotEmpty()) {
                                 addHeader(HEADER_TOKEN, token)
                             }
-                            addHeader(HEADER_TYPE, HEADER_TYPE_VAL)
-                            addHeader(HEADER_ACCEPT, HEADER_TYPE_VAL)
                         }.build()
                         chain.proceed(newRequest)
             }
@@ -45,6 +41,7 @@ class ServiceClient {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(DOMAIN)
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()

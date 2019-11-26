@@ -15,7 +15,7 @@ object SharePreferenceManager {
     }
 
     fun putToken(string : String)
-            = mSharedPreferences!!.edit().putString(SHARED_KEY_TOKEN, string)?.apply()
+            = mSharedPreferences!!.edit().putString(SHARED_KEY_TOKEN, string).apply()
 
     fun getToken() : String
             = mSharedPreferences!!.getString(SHARED_KEY_TOKEN, "")!!

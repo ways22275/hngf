@@ -2,6 +2,8 @@ package com.example.sideproject.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.sideproject.data.remote.Service
+import com.example.sideproject.data.remote.ServiceClient
 import com.example.sideproject.data.remote.login.LoginDataSource
 import com.example.sideproject.data.remote.login.LoginRepository
 
@@ -16,7 +18,7 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
                 loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
+                    service = ServiceClient.getService()
                 )
             ) as T
         }

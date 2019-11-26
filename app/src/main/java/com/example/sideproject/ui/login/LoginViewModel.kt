@@ -8,6 +8,10 @@ import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.data.Result
 
 import com.example.sideproject.R
+import com.example.sideproject.data.model.Account
+import com.example.sideproject.data.model.ApiBaseResponse
+import com.example.sideproject.utils.RxTransFormers.applySchedulerSingle
+import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -17,16 +21,50 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+    private val compositeDisposable = CompositeDisposable()
 
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
+    fun login(email: String, password: String) {
+        val disposable =
+            loginRepository.login(email, password)
+                .compose(applySchedulerSingle())
+                .subscribe(
+                    {
+                        response ->
+                        if (response.status != 200) {
+                            _loginResult.value = LoginResult(error = R.string.login_failed, errorMsg = response.message)
+                        } else {
+                            _loginResult.value =
+                                LoginResult(success = LoggedInUserView(displayName = email))
+                        }
+                    },
+                    {
+                        e -> _loginResult.value = LoginResult(error = R.string.login_failed, errorMsg = e.message)
+                    }
+                )
+
+        compositeDisposable.add(disposable)
+    }
+
+    fun register(email: String, password: String) {
+        val disposable =
+            loginRepository.register(email, password)
+                .compose(applySchedulerSingle())
+                .subscribe(
+                    {
+                            response ->
+                        if (response.status != 200) {
+                            _loginResult.value = LoginResult(error = R.string.login_failed, errorMsg = response.message)
+                        } else {
+                            _loginResult.value =
+                                LoginResult(success = LoggedInUserView(displayName = email))
+                        }
+                    },
+                    {
+                            e -> _loginResult.value = LoginResult(error = R.string.login_failed, errorMsg = e.message)
+                    }
+                )
+
+        compositeDisposable.add(disposable)
     }
 
     fun loginDataChanged(username: String, password: String) {
