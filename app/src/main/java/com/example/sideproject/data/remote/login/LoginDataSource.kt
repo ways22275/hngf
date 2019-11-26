@@ -1,5 +1,6 @@
-package com.example.sideproject.data
+package com.example.sideproject.data.remote.login
 
+import com.example.sideproject.data.Result
 import com.example.sideproject.data.model.LoggedInUser
 import java.io.IOException
 

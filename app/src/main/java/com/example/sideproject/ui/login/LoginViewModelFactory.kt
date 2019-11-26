@@ -2,8 +2,8 @@ package com.example.sideproject.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sideproject.data.LoginDataSource
-import com.example.sideproject.data.LoginRepository
+import com.example.sideproject.data.remote.login.LoginDataSource
+import com.example.sideproject.data.remote.login.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
