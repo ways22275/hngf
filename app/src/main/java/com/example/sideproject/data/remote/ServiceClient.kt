@@ -31,7 +31,7 @@ object ServiceClient {
                         val newRequest = chain.request().newBuilder().apply {
                             val token = getToken()
                             if (token.isNotEmpty()) {
-                                addHeader(HEADER_TOKEN, token)
+                                addHeader(HEADER_TOKEN, "Bearer $token")
                             }
                         }.build()
                         chain.proceed(newRequest)

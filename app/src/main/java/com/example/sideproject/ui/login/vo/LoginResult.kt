@@ -1,4 +1,4 @@
-package com.example.sideproject.ui.login
+package com.example.sideproject.ui.login.vo
 
 /**
  * Authentication result : success (user details) or error message.

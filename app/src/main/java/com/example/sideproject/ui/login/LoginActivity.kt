@@ -1,21 +1,22 @@
 package com.example.sideproject.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.example.sideproject.R
+import com.example.sideproject.ui.login.vo.LoggedInUserView
+import com.example.sideproject.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -59,7 +60,9 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-                //Complete and destroy login activity once successful
+                startActivity(
+                    Intent(this@LoginActivity, MainActivity::class.java)
+                )
                 finish()
             }
             setResult(Activity.RESULT_OK)
@@ -95,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

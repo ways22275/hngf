@@ -1,11 +1,9 @@
 package com.example.sideproject.data.remote.login
 
-import com.example.sideproject.data.Result
 import com.example.sideproject.data.model.Account
 import com.example.sideproject.data.model.ApiBaseResponse
 import com.example.sideproject.data.model.LoggedInUser
 import com.example.sideproject.data.remote.Service
-import com.example.sideproject.utils.RxTransFormers.applySchedulerSingle
 import com.example.sideproject.utils.SharePreferenceManager.putToken
 import io.reactivex.Single
 
@@ -31,7 +29,7 @@ class LoginRepository(private val service: Service) {
 
     fun logout() {
         user = null
-        service.logout()
+        // service.logout()
     }
 
     fun register(email: String, password: String): Single<ApiBaseResponse<Account>> {

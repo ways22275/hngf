@@ -1,4 +1,4 @@
-package com.example.sideproject.ui.login
+package com.example.sideproject.ui.login.vo
 
 /**
  * User details post authentication that is exposed to the UI

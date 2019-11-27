@@ -9,4 +9,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="gender_undefined">我沒有定義自己性別</string>
+    <string name="name_undefined">我沒有定義名字QQ</string>
+    <string name="isVip">我是VIP</string>
+    <string name="isNotVip">我不是VIP</string>
+    <string name="confirm_logout">確定要登出嗎?</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
 </resources>

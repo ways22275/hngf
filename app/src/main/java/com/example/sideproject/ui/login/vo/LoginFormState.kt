@@ -1,4 +1,4 @@
-package com.example.sideproject.ui.login
+package com.example.sideproject.ui.login.vo
 
 /**
  * Data validation state of the login form.
