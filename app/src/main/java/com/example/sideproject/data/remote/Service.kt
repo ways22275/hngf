@@ -14,6 +14,9 @@ interface Service {
     @POST("/api/user/login")
     fun login(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Account>>
 
+    @GET("/api/user/refreshToken")
+    fun refreshToken() : Single<ApiBaseResponse<Account>>
+
     @POST("/api/user/logout")
     fun logout() : Single<ApiBaseResponse<String>>
 
