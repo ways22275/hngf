@@ -58,7 +58,6 @@ class LaunchActivity : AppCompatActivity() {
                 override fun run() {
                     finish()
                     if (isLogin)
-                        // TODO　refresh Token ?
                         startActivity(
                             Intent(this@LaunchActivity, MainActivity::class.java)
                         )

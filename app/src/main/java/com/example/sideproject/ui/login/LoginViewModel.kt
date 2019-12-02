@@ -1,12 +1,12 @@
 package com.example.sideproject.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import com.example.sideproject.data.remote.login.LoginRepository
-
 import com.example.sideproject.R
+import com.example.sideproject.data.remote.ApiError
+import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.ui.login.vo.LoggedInUserView
 import com.example.sideproject.ui.login.vo.LoginFormState
 import com.example.sideproject.ui.login.vo.LoginResult
@@ -42,9 +42,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                             }
                     },
                     {
-                        e -> _loginResult.value = LoginResult(
-                            error = R.string.login_failed,
-                            errorMsg = e.message)
+                        e ->
+                            if (e != null) {
+                                val errorMsg = ApiError(e).message
+                                _loginResult.value = LoginResult(
+                                    error = R.string.login_failed,
+                                    errorMsg = errorMsg
+                                )
+                            }
                     }
                 )
 
@@ -73,12 +78,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     )
                             }
                     },
-                    {
-                            e -> _loginResult.value =
-                        LoginResult(
-                            error = R.string.login_failed,
-                            errorMsg = e.message
-                        )
+                    { e ->
+                        if (e != null) {
+                            val errorMsg = ApiError(e).message
+                            _loginResult.value = LoginResult(
+                                error = R.string.login_failed,
+                                errorMsg = errorMsg
+                            )
+                        }
                     }
                 )
 

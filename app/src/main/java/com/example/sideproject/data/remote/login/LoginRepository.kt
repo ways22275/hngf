@@ -36,10 +36,9 @@ class LoginRepository(private val service: Service) {
         val params = HashMap<String, String>()
         params["email"] = email
         params["password"] = password
-        return service.register(params).doOnSuccess{
-                response ->
-            response.data?.token?.let { putToken(it) }
-        }
+        return service.register(params)
+            .doOnSuccess {
+                response -> response.data?.token?.let { putToken(it) } }
     }
 
     fun login(email: String, password: String): Single<ApiBaseResponse<Account>> {

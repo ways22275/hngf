@@ -3,7 +3,7 @@ package com.example.sideproject.utils
 object Constant {
 
     // region Retrofit Service
-    const val DOMAIN = "http://192.168.1.136:8080"
+    const val DOMAIN = "http://192.168.1.99:8080"
     const val HEADER_TYPE = "Content-Type"
     const val HEADER_ACCEPT = "Accept"
     const val HEADER_TOKEN = "Authorization"
