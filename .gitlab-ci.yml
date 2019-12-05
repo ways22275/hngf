@@ -2,6 +2,7 @@ image: jangrewe/gitlab-ci-android
 
 stages:
 - build
+- deploy
 
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
@@ -13,9 +14,19 @@ cache:
   - .gradle/
 
 build:
+  only:
+  - master
   stage: build
   script:
   - ./gradlew assembleDebug
   artifacts:
     paths:
-    - app/build/outputs/apk/debug/app-debug.apk
+    - app/build/outputs/apk/debug/*.apk
+
+deploy:
+  stage: deploy
+  script:
+    lftp -u $SFTP_USER, $SFTP_PASSWORD $SFTP_HOST -e "mirror -e -R -x static/ -p ./ home/willy/android/*.apk ; quit"
+  only:
+    - master
+
