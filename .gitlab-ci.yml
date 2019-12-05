@@ -7,6 +7,8 @@ stages:
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
 - chmod +x ./gradlew
+- apt-get update -qy
+- apt-get install -y lftp
 
 cache:
   key: ${CI_PROJECT_ID}
