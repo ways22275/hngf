@@ -28,7 +28,7 @@ build:
 deploy:
   stage: deploy
   script:
-    lftp -u $SFTP_USER, $SFTP_PASSWORD $SFTP_HOST -e "mirror -e -R -x static/ -p ./ home/willy/android/*.apk ; quit"
+    lftp -u $SFTP_USER,$SFTP_PASSWORD $SFTP_HOST -e "mirror -e -R -x static/ -p ./ home/willy/android/*.apk ; quit"
   only:
     - master
 
