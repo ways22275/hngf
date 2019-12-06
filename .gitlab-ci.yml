@@ -4,19 +4,15 @@ stages:
 - build
 - deploy
 
-before_script:
-- export GRADLE_USER_HOME=$(pwd)/.gradle
-- chmod +x ./gradlew
-- apt-get update -qy
-- apt-get install -y lftp
-- apt-get install -y openssh-server
-
 cache:
   key: ${CI_PROJECT_ID}
   paths:
   - .gradle/
 
 build:
+  before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./gradlew
   only:
   - master
   stage: build
@@ -27,6 +23,10 @@ build:
     - app/build/outputs/apk/debug/*.apk
 
 deploy:
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y lftp
+    - apt-get install -y openssh-server
   stage: deploy
   script:
     lftp -e " 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /home/user/.ssh/id_rsa_deploy';open $SFTP_HOST; user $SFTP_USER $SFTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete app/build/outputs/apk/debug/ $SFTP_TARGET_FOLDER; bye"
