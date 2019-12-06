@@ -17,7 +17,7 @@ build:
   - master
   stage: build
   script:
-  - ./gradlew assembleDebugg
+  - ./gradlew assembleDebug
   artifacts:
     paths:
     - app/build/outputs/apk/debug/*.apk
