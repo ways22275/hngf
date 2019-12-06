@@ -28,7 +28,7 @@ build:
 deploy:
   stage: deploy
   script:
-    lftp -u $SFTP_USER,$SFTP_PASSWORD $SFTP_HOST -e "mirror -e -R -x static/ -p ./ home/willy/android/*.apk ; quit"
+    lftp -e " 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /home/user/.ssh/id_rsa_deploy';open $SFTP_HOST; user $SFTP_USER $SFTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete app/build/outputs/apk/debug/ $SFTP_TARGET_FOLDER; bye"
   only:
     - master
 
