@@ -29,7 +29,7 @@ deploy:
     - apt-get install -y openssh-server
   stage: deploy
   script:
-    lftp -e " set sftp:connect-program 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /home/user/.ssh/id_rsa_deploy';open $SFTP_HOST; user $SFTP_USER $SFTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose --delete $SFTP_SOURCE_FOLDER $SFTP_TARGET_FOLDER; bye"
+    lftp -e " set sftp:connect-program 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /home/user/.ssh/id_rsa_deploy';open $SFTP_HOST; user $SFTP_USER $SFTP_PASSWORD; mirror -X .* -X .*/ --reverse --verbose $SFTP_SOURCE_FOLDER $SFTP_TARGET_FOLDER; bye"
   only:
     - master
 
