@@ -32,23 +32,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                         response ->
                             if (response.status != 200) {
                                 _loginResult.value =
-                                    LoginResult(
-                                        error = R.string.login_failed,
-                                        errorMsg = response.message)
+                                    LoginResult(error = R.string.login_failed, errorMsg = response.message)
                             } else {
-                                _loginResult.value =
-                                    LoginResult(
-                                        success = LoggedInUserView(displayName = email))
+                                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = email))
                             }
                     },
                     {
                         e ->
                             if (e != null) {
                                 val errorMsg = ApiError(e).message
-                                _loginResult.value = LoginResult(
-                                    error = R.string.login_failed,
-                                    errorMsg = errorMsg
-                                )
+                                _loginResult.value = LoginResult(error = R.string.login_failed, errorMsg = errorMsg)
                             }
                     }
                 )
