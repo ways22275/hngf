@@ -16,4 +16,6 @@
     <string name="confirm_logout">確定要登出嗎?</string>
     <string name="confirm">確定</string>
     <string name="cancel">取消</string>
+    <string name="edit_your_name">修改暱稱</string>
+    <string name="edit_user_success">修改成功</string>
 </resources>

@@ -7,11 +7,11 @@ import io.reactivex.Single
 
 class UserRepository (private val service: Service) {
 
-    fun getUserInfo() : Single<ApiBaseResponse<UserInfo>> {
-        return service.getProfile()
-    }
+    fun getUserInfo() : Single<ApiBaseResponse<UserInfo>> = service.getProfile()
 
-    fun putUserInfo(name : String) {
-
+    fun putUserInfo(name : String) : Single<ApiBaseResponse<Int>> {
+        val params = HashMap<String, String>()
+        params["name"] = name
+        return service.putProfile(params)
     }
 }

@@ -16,7 +16,7 @@ import android.widget.Toast
 
 import com.example.sideproject.R
 import com.example.sideproject.ui.login.vo.LoggedInUserView
-import com.example.sideproject.ui.main.MainActivity
+import com.example.sideproject.ui.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 

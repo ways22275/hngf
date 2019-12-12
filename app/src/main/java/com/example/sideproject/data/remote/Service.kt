@@ -22,4 +22,7 @@ interface Service {
 
     @GET("/api/user/me")
     fun getProfile() : Single<ApiBaseResponse<UserInfo>>
+
+    @PUT("/api/user/me")
+    fun putProfile(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Int>>
 }

@@ -1,4 +1,4 @@
-package com.example.sideproject.ui.main
+package com.example.sideproject.ui.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
