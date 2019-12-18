@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_play">
+
+    <fragment
+        android:id="@+id/nav_play"
+        android:name="com.example.sideproject.ui.main.PlayFragment"
+        android:label="@string/menu_title_play"
+        tools:layout="@layout/fragment_play">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_winning_list"
+        android:name="com.example.sideproject.ui.main.WinningListFragment"
+        android:label="@string/menu_title_winning_list"
+        tools:layout="@layout/fragment_winning_list"/>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.sideproject.ui.user.UserFragment"
+        android:label="@string/menu_title_profile"
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_userEditFragment"
+            app:destination="@id/nav_profile_edit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile_edit"
+        android:name="com.example.sideproject.ui.user.UserEditFragment"
+        android:label="@string/menu_title_profile_edit"
+        tools:layout="@layout/fragment_user_edit"/>
+
+</navigation>

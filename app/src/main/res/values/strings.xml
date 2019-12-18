@@ -1,14 +1,17 @@
 <resources>
-    <string name="app_name">SideProject</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_up">Sign Up</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="app_name">小樂透</string>
+
+    <string name="prompt_email">帳號</string>
+    <string name="prompt_password">密碼</string>
+    <string name="action_sign_up">註冊</string>
+    <string name="action_sign_in">登入</string>
+    <string name="welcome">"歡迎 !"</string>
+    <string name="invalid_username">帳號名稱無效</string>
+    <string name="invalid_password">密碼必須大於五個字元喔喔喔喔</string>
+    <string name="login_failed">"登入失敗"</string>
+
+    <string name="nav_header_desc">Navigation header</string>
+
     <string name="gender_undefined">我沒有定義自己性別</string>
     <string name="name_undefined">我沒有定義名字QQ</string>
     <string name="isVip">我是VIP</string>
@@ -16,6 +19,12 @@
     <string name="confirm_logout">確定要登出嗎?</string>
     <string name="confirm">確定</string>
     <string name="cancel">取消</string>
+
     <string name="edit_your_name">修改暱稱</string>
     <string name="edit_user_success">修改成功</string>
+
+    <string name="menu_title_play">下注去</string>
+    <string name="menu_title_winning_list">已開獎列表</string>
+    <string name="menu_title_profile">用戶頁</string>
+    <string name="menu_title_profile_edit">用戶資料更動</string>
 </resources>
