@@ -14,7 +14,7 @@ class WiningViewModel(private var lotteryRepository: LotteryRepository) : ViewMo
     val winingList: LiveData<ArrayList<Winning>> = _winingList
 
     private val _compositeDisposable = CompositeDisposable()
-    var page = 0
+    var page = 1
         private set
 
     fun getList() {
@@ -33,7 +33,7 @@ class WiningViewModel(private var lotteryRepository: LotteryRepository) : ViewMo
     }
 
     fun resetPageCount() {
-        page = 0
+        page = 1
     }
 
     override fun onCleared() {

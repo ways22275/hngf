@@ -64,7 +64,6 @@ class WiningListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             val list = it ?: return@Observer
             val nowPage = _winingViewModel.page
-            toast(nowPage)
             if (nowPage == 1) {
                 _adapter.setData(list)
             } else if (nowPage > 1) {
