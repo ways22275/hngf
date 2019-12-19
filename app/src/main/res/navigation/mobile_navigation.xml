@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/nav_winning_list"
-        android:name="com.example.sideproject.ui.main.WinningListFragment"
+        android:name="com.example.sideproject.ui.main.wining.WiningListFragment"
         android:label="@string/menu_title_winning_list"
         tools:layout="@layout/fragment_winning_list"/>
 

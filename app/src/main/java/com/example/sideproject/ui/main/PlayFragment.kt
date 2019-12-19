@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.example.sideproject.R
+import kotlinx.android.synthetic.main.fragment_play.*
 
 class PlayFragment : Fragment(){
 
@@ -16,7 +18,12 @@ class PlayFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val webView = view.findViewById<WebView>(R.id.webView_play)
-        webView.loadUrl("www.google.com")
+        webView_play.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
+        }
+        webView_play.loadUrl("www.google.com")
     }
 }

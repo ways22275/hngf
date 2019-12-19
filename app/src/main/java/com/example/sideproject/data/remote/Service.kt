@@ -3,8 +3,12 @@ package com.example.sideproject.data.remote
 import com.example.sideproject.data.model.Account
 import com.example.sideproject.data.model.ApiBaseResponse
 import com.example.sideproject.data.model.UserInfo
+import com.example.sideproject.data.model.Winning
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface Service {
 
@@ -25,4 +29,7 @@ interface Service {
 
     @PUT("/api/user/me")
     fun putProfile(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Int>>
+
+    @GET("/api/lottery/winning")
+    fun getWinningList() : Single<ApiBaseResponse<ArrayList<Winning>>>
 }

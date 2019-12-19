@@ -27,4 +27,6 @@
     <string name="menu_title_winning_list">已開獎列表</string>
     <string name="menu_title_profile">用戶頁</string>
     <string name="menu_title_profile_edit">用戶資料更動</string>
+    <string name="wining_stage">開獎期號 : </string>
+    <string name="current_page">第 %s 頁</string>
 </resources>

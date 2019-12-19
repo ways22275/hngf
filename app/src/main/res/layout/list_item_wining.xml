@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:toos="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray">
+
+    <TextView
+        android:id="@+id/textView_wining_stage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:text="@string/wining_stage"
+        toos:layout_constraintStart_toStartOf="parent"
+        toos:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_wining_stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        tools:text="123456677777"
+        toos:layout_constraintStart_toEndOf="@id/textView_wining_stage_title"
+        toos:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        toos:layout_constraintStart_toStartOf="parent"
+        toos:layout_constraintTop_toBottomOf="@id/textView_wining_stage_title">
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="1"/>
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="1"/>
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="1"/>
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="29"/>
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="1"/>
+
+        <com.example.sideproject.utils.widget.CircularTextView
+            android:id="@+id/circular_6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/circularTextView_margin"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="@dimen/circularTextView_padding"
+            android:textColor="@android:color/white"
+            tools:text="1"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_wining_stage_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"
+        tools:text="2019-12-17T06:05:00.006+0000"
+        toos:layout_constraintTop_toBottomOf="@id/layout_list"
+        toos:layout_constraintEnd_toEndOf="parent"
+        toos:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
