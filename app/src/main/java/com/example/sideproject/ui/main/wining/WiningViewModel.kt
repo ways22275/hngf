@@ -14,13 +14,13 @@ class WiningViewModel(private var lotteryRepository: LotteryRepository) : ViewMo
     val winingList: LiveData<ArrayList<Winning>> = _winingList
 
     private val _compositeDisposable = CompositeDisposable()
-    var page = 1
+    var page = 0
         private set
 
     fun getList() {
         page++
         val disposable = lotteryRepository
-            .getWinningList()
+            .getWinningList(page)
             .compose(RxTransFormers.applySchedulerSingle())
             .subscribe(
                 {
@@ -33,7 +33,7 @@ class WiningViewModel(private var lotteryRepository: LotteryRepository) : ViewMo
     }
 
     fun resetPageCount() {
-        page = 1
+        page = 0
     }
 
     override fun onCleared() {

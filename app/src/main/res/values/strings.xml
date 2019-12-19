@@ -29,4 +29,5 @@
     <string name="menu_title_profile_edit">用戶資料更動</string>
     <string name="wining_stage">開獎期號 : </string>
     <string name="current_page">第 %s 頁</string>
+    <string name="fetch_list_end">列表到底囉</string>
 </resources>

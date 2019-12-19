@@ -5,10 +5,7 @@ import com.example.sideproject.data.model.ApiBaseResponse
 import com.example.sideproject.data.model.UserInfo
 import com.example.sideproject.data.model.Winning
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface Service {
 
@@ -31,5 +28,5 @@ interface Service {
     fun putProfile(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Int>>
 
     @GET("/api/lottery/winning")
-    fun getWinningList() : Single<ApiBaseResponse<ArrayList<Winning>>>
+    fun getWinningList(@QueryMap params : HashMap<String, String>) : Single<ApiBaseResponse<ArrayList<Winning>>>
 }

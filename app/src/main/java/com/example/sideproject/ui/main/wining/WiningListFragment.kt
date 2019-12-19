@@ -20,6 +20,8 @@ class WiningListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var _winingViewModel: WiningViewModel
     private lateinit var _adapter : WiningListAdapter
 
+    private var _isLoadMore = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_winning_list, container, false)
     }
@@ -63,11 +65,16 @@ class WiningListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         _winingViewModel.winingList.observe(this, Observer {
             swipeRefreshLayout.isRefreshing = false
             val list = it ?: return@Observer
-            val nowPage = _winingViewModel.page
-            if (nowPage == 1) {
-                _adapter.setData(list)
-            } else if (nowPage > 1) {
-                _adapter.addData(list)
+            if (list.size > 0) {
+                val nowPage = _winingViewModel.page
+                toastPage(nowPage)
+                if (nowPage == 1) {
+                    _adapter.setData(list)
+                } else if (nowPage > 1) {
+                    _adapter.addData(list)
+                }
+            } else {
+                _isLoadMore = false
             }
         })
 
@@ -78,20 +85,23 @@ class WiningListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onStart() {
         super.onStart()
-        _winingViewModel.resetPageCount()
         fetchList()
     }
 
     override fun onRefresh() {
         _winingViewModel.resetPageCount()
+        _isLoadMore = true
         fetchList()
     }
 
     private fun fetchList() {
-        _winingViewModel.getList()
+        if (_isLoadMore)
+            _winingViewModel.getList()
+        else
+            Toast.makeText(context, resources.getString(R.string.fetch_list_end), Toast.LENGTH_SHORT).show()
     }
 
-    private fun toast(page : Int) {
+    private fun toastPage(page : Int) {
         Toast.makeText(context, resources.getString(R.string.current_page, page.toString()), Toast.LENGTH_SHORT).show()
     }
 }
