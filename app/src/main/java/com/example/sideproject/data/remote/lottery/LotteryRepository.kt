@@ -12,4 +12,6 @@ class LotteryRepository (private var service: Service) {
         params["page"] = page.toString()
         return service.getWinningList(params)
     }
+
+    // TODO Room Cache
 }

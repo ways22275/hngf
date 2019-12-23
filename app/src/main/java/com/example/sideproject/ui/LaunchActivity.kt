@@ -2,15 +2,15 @@ package com.example.sideproject.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.sideproject.App.Companion.roomDatabase
 import com.example.sideproject.R
 import com.example.sideproject.data.remote.ServiceClient
 import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.ui.login.LoginActivity
 import com.example.sideproject.utils.RxTransFormers.applySchedulerSingle
 import com.example.sideproject.utils.SharePreferenceManager.getToken
-import com.example.sideproject.utils.SharePreferenceManager.putToken
 import java.util.*
 
 class LaunchActivity : AppCompatActivity() {
@@ -28,25 +28,25 @@ class LaunchActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun checkToken() {
         if (isLogin) {
-            val repository = LoginRepository(service = ServiceClient.getService())
+            val repository = LoginRepository(
+                service = ServiceClient.getService(), userModel = roomDatabase.userModel())
             repository.refreshToken()
                 .compose(applySchedulerSingle())
                 .subscribe({
                     response ->
                         if (response.status != 200) {
-                            autoLogout()
+                            autoLogout(repository)
                         } else {
-                            response.data?.token?.let { putToken(it) }
                             runSplash()
                         }
-                },{ autoLogout() })
+                },{ autoLogout(repository) })
         } else {
             runSplash()
         }
     }
 
-    private fun autoLogout() {
-        putToken("")
+    private fun autoLogout(repository: LoginRepository) {
+        repository.logout()
         isLogin = false
         runSplash()
     }

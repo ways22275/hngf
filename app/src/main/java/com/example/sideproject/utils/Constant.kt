@@ -14,5 +14,10 @@ object Constant {
     const val SHARED_KEY_TOKEN = "SHARED_KEY_TOKEN"
     const val SHARED_KEY_NETWORK = "SHARED_KEY_NETWORK"
     // endregion
+
+    // region Room
+    const val TABLE_WINING = "WINING"
+    const val TABLE_USER = "USER"
+    // endregion
     
 }

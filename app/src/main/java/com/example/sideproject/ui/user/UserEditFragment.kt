@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import com.example.sideproject.R
 import com.example.sideproject.ui.login.afterTextChanged
-import com.example.sideproject.ui.user.UserFragment.Companion.USER_INFO_BUNDLE_KEY
 import kotlinx.android.synthetic.main.fragment_user_edit.*
 
 class UserEditFragment : Fragment() {
@@ -38,19 +38,21 @@ class UserEditFragment : Fragment() {
                 Toast.makeText(activity, state.errorMsg, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(activity, getString(R.string.edit_user_success), Toast.LENGTH_SHORT).show()
+                requireActivity().onBackPressed()
             }
-            requireActivity().onBackPressed()
         })
 
-        val name = arguments?.getString(USER_INFO_BUNDLE_KEY)
-        edit_name.setText(name)
+        val safeArgs: UserEditFragmentArgs by navArgs()
+        val userInfo = safeArgs.userInfo
+        edit_name.setText(userInfo.name)
 
         edit_name.afterTextChanged {
             userViewModel.userInfoChanged(edit_name.text.toString())
         }
 
         edit_submit.setOnClickListener {
-            userViewModel.putUser(edit_name.text.toString())
+            userInfo.name = edit_name.text.toString()
+            userViewModel.putUser(userInfo)
         }
     }
 }

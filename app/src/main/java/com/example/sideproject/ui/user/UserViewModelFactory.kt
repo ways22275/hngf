@@ -2,6 +2,7 @@ package com.example.sideproject.ui.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.sideproject.App.Companion.roomDatabase
 import com.example.sideproject.data.remote.ServiceClient
 import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.data.remote.user.UserRepository
@@ -14,10 +15,12 @@ class UserViewModelFactory : ViewModelProvider.Factory {
             val service = ServiceClient.getService()
             return UserViewModel(
                 userRepository = UserRepository(
-                    service = service
+                    service = service,
+                    userModel = roomDatabase.userModel()
                 ),
                 loginRepository = LoginRepository(
-                    service = service
+                    service = service,
+                    userModel = roomDatabase.userModel()
                 )
             ) as T
         }

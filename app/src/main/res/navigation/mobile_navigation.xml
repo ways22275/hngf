@@ -37,6 +37,10 @@
         android:id="@+id/nav_profile_edit"
         android:name="com.example.sideproject.ui.user.UserEditFragment"
         android:label="@string/menu_title_profile_edit"
-        tools:layout="@layout/fragment_user_edit"/>
+        tools:layout="@layout/fragment_user_edit" >
+        <argument
+            android:name="user_info"
+            app:argType="com.example.sideproject.data.model.UserInfo"/>
+    </fragment>
 
 </navigation>

@@ -15,7 +15,7 @@ interface Service {
     @POST("/api/user/login")
     fun login(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Account>>
 
-    @POST("/api/user/refreshToken")
+    @POST("/api/user/refresh_token")
     fun refreshToken() : Single<ApiBaseResponse<Account>>
 
     @POST("/api/user/logout")
@@ -24,8 +24,11 @@ interface Service {
     @GET("/api/user/me")
     fun getProfile() : Single<ApiBaseResponse<UserInfo>>
 
+    @GET("/api/user/me")
+    fun getAccountProfile() : Single<ApiBaseResponse<Account>>
+
     @PUT("/api/user/me")
-    fun putProfile(@Body fields : HashMap<String, String>) : Single<ApiBaseResponse<Int>>
+    fun putProfile(@Body fields : HashMap<String, String?>) : Single<ApiBaseResponse<Int>>
 
     @GET("/api/lottery/winning")
     fun getWinningList(@QueryMap params : HashMap<String, String>) : Single<ApiBaseResponse<ArrayList<Winning>>>

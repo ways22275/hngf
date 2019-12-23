@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.sideproject.R
+import com.example.sideproject.data.model.UserInfo
 import com.example.sideproject.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_user.*
 
@@ -24,6 +24,7 @@ class UserFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var mContext : Context
+    private var _userInfo : UserInfo? = null
 
     // TODO Add BaseFragment
     override fun onAttach(context: Context) {
@@ -56,8 +57,11 @@ class UserFragment : Fragment() {
 
         val navController = findNavController(this)
         edit.setOnClickListener {
-            val bundle = bundleOf(USER_INFO_BUNDLE_KEY to user_name.text)
-            navController.navigate(R.id.action_userFragment_to_userEditFragment, bundle)
+            if (_userInfo != null) {
+                val action = _userInfo?.let {
+                        _user -> UserFragmentDirections.actionUserFragmentToUserEditFragment(_user) }
+                action?.let { _action -> navController.navigate(_action) }
+            }
         }
 
         userViewModel = ViewModelProviders.of(this, UserViewModelFactory())
@@ -65,6 +69,7 @@ class UserFragment : Fragment() {
 
         userViewModel.userInfo.observe(this, Observer {
             val userInfo = it ?: return@Observer
+            _userInfo = userInfo
             user_name.text = if (userInfo.name.isNullOrEmpty()) getString(R.string.name_undefined) else userInfo.name
             user_email.text = userInfo.email
             user_gender.text = userInfo.gender ?: getString(R.string.gender_undefined)

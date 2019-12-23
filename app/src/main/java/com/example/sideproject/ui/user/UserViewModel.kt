@@ -30,11 +30,11 @@ class UserViewModel (
 
     @SuppressLint("CheckResult")
     fun getUser() {
-        val disposable = userRepository.getUserInfo()
+        val disposable = userRepository.getUserInfoFromLocal()
             .compose(applySchedulerSingle())
             .subscribe(
                 {
-                    response -> _userInfo.value = response.data
+                    userInfo -> _userInfo.value = userInfo
                 },
                 {
                     e -> e.printStackTrace()
@@ -43,8 +43,8 @@ class UserViewModel (
     }
 
     @SuppressLint("CheckResult")
-    fun putUser(name : String) {
-        val disposable = userRepository.putUserInfo(name)
+    fun putUser(user : UserInfo) {
+        val disposable = userRepository.putUserInfo(userInfo = user)
             .compose(applySchedulerSingle())
             .subscribe (
                 {

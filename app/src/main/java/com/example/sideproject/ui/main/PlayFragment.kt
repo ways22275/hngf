@@ -1,5 +1,6 @@
 package com.example.sideproject.ui.main
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +19,15 @@ class PlayFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            webView_play.settings.safeBrowsingEnabled = false
+        }
         webView_play.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view?.loadUrl(url)
                 return true
             }
         }
-        webView_play.loadUrl("www.google.com")
+        webView_play.loadUrl("https://www.google.com")
     }
 }
