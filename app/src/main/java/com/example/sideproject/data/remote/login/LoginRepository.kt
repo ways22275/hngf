@@ -1,11 +1,13 @@
 package com.example.sideproject.data.remote.login
 
-import android.os.AsyncTask
 import com.example.sideproject.data.local.User.UserDao
 import com.example.sideproject.data.model.*
 import com.example.sideproject.data.remote.Service
 import com.example.sideproject.utils.SharePreferenceManager.putToken
+import io.reactivex.Completable
 import io.reactivex.Single
+
+
 
 
 
@@ -29,8 +31,9 @@ class LoginRepository(private val service: Service, private val userModel: UserD
         user = null
     }
 
-    fun logout() {
-        DeleteAsyncTask(userModel).execute()
+    fun logout() : Completable{
+        putToken("")
+        return Completable.fromAction {  userModel.logout() }
     }
 
     fun register(email: String, password: String): Single<ApiBaseResponse<Account>> {
@@ -90,13 +93,5 @@ class LoginRepository(private val service: Service, private val userModel: UserD
         this.user = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
-    }
-
-    private class DeleteAsyncTask internal constructor(private val mAsyncTaskDao: UserDao) :
-        AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg voids: Void): Void? {
-            mAsyncTaskDao.deleteAll()
-            return null
-        }
     }
 }

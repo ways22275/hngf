@@ -27,4 +27,9 @@ interface UserDao {
             update(user)
         }
     }
+
+    @Transaction
+    fun logout() {
+        deleteAll()
+    }
 }

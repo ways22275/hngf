@@ -9,6 +9,7 @@ import com.example.sideproject.R
 import com.example.sideproject.data.remote.ServiceClient
 import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.ui.login.LoginActivity
+import com.example.sideproject.utils.RxTransFormers
 import com.example.sideproject.utils.RxTransFormers.applySchedulerSingle
 import com.example.sideproject.utils.SharePreferenceManager.getToken
 import java.util.*
@@ -20,7 +21,6 @@ class LaunchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
-        var token = getToken()
         isLogin = getToken().isNotEmpty()
         checkToken()
     }
@@ -47,6 +47,8 @@ class LaunchActivity : AppCompatActivity() {
 
     private fun autoLogout(repository: LoginRepository) {
         repository.logout()
+            .compose(RxTransFormers.applySchedulerCompletable())
+            .subscribe()
         isLogin = false
         runSplash()
     }

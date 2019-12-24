@@ -10,8 +10,8 @@ import com.example.sideproject.data.remote.login.LoginRepository
 import com.example.sideproject.data.remote.user.UserRepository
 import com.example.sideproject.ui.user.vo.UserEditResult
 import com.example.sideproject.ui.user.vo.UserFormState
+import com.example.sideproject.utils.RxTransFormers.applySchedulerCompletable
 import com.example.sideproject.utils.RxTransFormers.applySchedulerSingle
-import com.example.sideproject.utils.SharePreferenceManager.putToken
 import io.reactivex.disposables.CompositeDisposable
 
 class UserViewModel (
@@ -66,8 +66,9 @@ class UserViewModel (
     }
 
     fun logout() {
-        putToken("")
         loginRepository.logout()
+            .compose(applySchedulerCompletable())
+            .subscribe()
     }
 
     fun userInfoChanged(name : String) {
