@@ -83,8 +83,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:2.1.0"
 
     // Room
-    def room_version = "2.1.0"
+    def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Paging
+    def paging_version = "2.1.1"
+    implementation "androidx.paging:paging-runtime:$paging_version"
 }

@@ -1,43 +1,18 @@
 package com.example.sideproject.ui.main.wining
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sideproject.data.model.Winning
-import com.example.sideproject.data.remote.lottery.LotteryRepository
-import com.example.sideproject.utils.RxTransFormers
-import io.reactivex.disposables.CompositeDisposable
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.sideproject.data.remote.lottery.WiningPageDataSourceFactory
 
-class WiningViewModel(private var lotteryRepository: LotteryRepository) : ViewModel() {
+class WiningViewModel : ViewModel() {
 
-    private val _winingList = MutableLiveData<ArrayList<Winning>>()
-    val winingList: LiveData<ArrayList<Winning>> = _winingList
+    val winingList = LivePagedListBuilder(WiningPageDataSourceFactory(),
+        PagedList.Config.Builder()
+            .setPageSize(10)
+            .setEnablePlaceholders(false).build()).build()
 
-    private val _compositeDisposable = CompositeDisposable()
-    var page = 0
-        private set
-
-    fun getList() {
-        page++
-        val disposable = lotteryRepository
-            .getWinningList(page)
-            .compose(RxTransFormers.applySchedulerSingle())
-            .subscribe(
-                {
-                        response -> _winingList.value = response.data
-                },
-                {
-                        e -> e.printStackTrace()
-                })
-        _compositeDisposable.add(disposable)
-    }
-
-    fun resetPageCount() {
-        page = 0
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        _compositeDisposable.dispose()
+    fun refresh() {
+        WiningPageDataSourceFactory.sourceMutableLiveData.value?.invalidate()
     }
 }

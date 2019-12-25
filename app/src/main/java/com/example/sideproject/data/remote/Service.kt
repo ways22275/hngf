@@ -31,5 +31,5 @@ interface Service {
     fun putProfile(@Body fields : HashMap<String, String?>) : Single<ApiBaseResponse<Int>>
 
     @GET("/api/lottery/winning")
-    fun getWinningList(@QueryMap params : HashMap<String, String>) : Single<ApiBaseResponse<ArrayList<Winning>>>
+    fun getWinningList(@QueryMap params : HashMap<String, String>) : Single<ApiBaseResponse<List<Winning>>>
 }

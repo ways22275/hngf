@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 class LotteryRepository (private var service: Service) {
 
-    fun getWinningList(page : Int) : Single<ApiBaseResponse<ArrayList<Winning>>>{
+    fun getWinningList(page : Int) : Single<ApiBaseResponse<List<Winning>>>{
         val params = HashMap<String, String>()
         params["page"] = page.toString()
         return service.getWinningList(params)

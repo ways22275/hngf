@@ -4,36 +4,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.example.sideproject.R
 import com.example.sideproject.data.model.Winning
 import com.example.sideproject.ui.base.BaseViewHolder
 import com.example.sideproject.utils.widget.CircularTextView
 
-class WiningListAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
+class WiningListAdapter : PagedListAdapter<Winning, BaseViewHolder<*>>(diffCallback) {
 
-    private var _list :  MutableList<Winning> = mutableListOf()
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<Winning>() {
+            override fun areItemsTheSame(oldItem: Winning ,newItem: Winning): Boolean {
+                return oldItem.stage == newItem.stage
+            }
+
+            override fun areContentsTheSame(oldItem: Winning, newItem: Winning): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*>
         = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_wining, parent, false))
 
-    override fun getItemCount(): Int = _list.size
-
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         if (holder is ViewHolder) {
-            holder.bind(_list[position])
+            getItem(position)?.let { holder.bind(it) }
         }
-    }
-
-    fun setData (list : List<Winning>) {
-        _list.clear()
-        _list.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    fun addData (list : List<Winning>) {
-        _list.addAll(_list.size, list)
-        notifyItemRangeInserted(_list.size, list.size)
     }
 
     inner class ViewHolder(_itemView: View): BaseViewHolder<Winning>(_itemView) {
