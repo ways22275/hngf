@@ -19,7 +19,7 @@ data class Account (
     var isVIP : Boolean
 )
 
-fun toEntity(account: Account) : UserInfo {
+fun toUserEntity(account: Account) : UserInfo {
     return UserInfo(
         name = account.name,
         email = account.email,

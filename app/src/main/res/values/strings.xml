@@ -30,4 +30,7 @@
     <string name="wining_stage">開獎期號 : </string>
     <string name="current_page">第 %s 頁</string>
     <string name="fetch_list_end">列表到底囉</string>
+    <string name="menu_title_chat">來聊聊</string>
+    <string name="chat_submit">送出</string>
+    <string name="chat_hint">在這邊輸入訊息</string>
 </resources>

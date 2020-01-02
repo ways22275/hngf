@@ -43,4 +43,10 @@
             app:argType="com.example.sideproject.data.model.UserInfo"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.sideproject.ui.chat.ChatFragment"
+        android:label="@string/menu_title_chat"
+        tools:layout="@layout/fragment_chat" />
+
 </navigation>

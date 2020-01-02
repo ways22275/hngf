@@ -13,6 +13,10 @@
             android:icon="@drawable/baseline_face_black_48"
             android:title="@string/menu_title_winning_list" />
         <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/baseline_face_black_48"
+            android:title="@string/menu_title_chat" />
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/baseline_face_black_48"
             android:title="@string/menu_title_profile" />

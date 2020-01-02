@@ -47,7 +47,7 @@ class LoginRepository(private val service: Service, private val userModel: UserD
                 service.getAccountProfile()
             }.doOnSuccess {
                     accountResponse ->
-                val userInfo = accountResponse.data?.let { toEntity(it) }
+                val userInfo = accountResponse.data?.let { toUserEntity(it) }
                 if (userInfo != null) {
                     setUserInfoLocal(userInfo)
                 }
@@ -65,7 +65,7 @@ class LoginRepository(private val service: Service, private val userModel: UserD
                         service.getAccountProfile()
             }.doOnSuccess {
                 accountResponse ->
-                    val userInfo = accountResponse.data?.let { toEntity(it) }
+                    val userInfo = accountResponse.data?.let { toUserEntity(it) }
                     if (userInfo != null) {
                         setUserInfoLocal(userInfo)
                     }
@@ -80,7 +80,7 @@ class LoginRepository(private val service: Service, private val userModel: UserD
                 service.getAccountProfile()
             }.doOnSuccess {
                     accountResponse ->
-                val userInfo = accountResponse.data?.let { toEntity(it) }
+                val userInfo = accountResponse.data?.let { toUserEntity(it) }
                 if (userInfo != null) {
                     setUserInfoLocal(userInfo)
                 }

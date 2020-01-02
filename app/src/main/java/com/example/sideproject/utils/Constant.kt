@@ -19,5 +19,9 @@ object Constant {
     const val TABLE_WINING = "WINING"
     const val TABLE_USER = "USER"
     // endregion
+
+    // region WebSocket
+    const val DOMAIN_SOCKET = "ws://192.168.1.46:8081/chat/"
+    // endregion
     
 }
