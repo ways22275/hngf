@@ -23,12 +23,19 @@ public class ChatViewModel extends ViewModel {
 
     private WebSocketClient _socketClient;
     private Gson gson = new Gson();
+    private String _userName = "undefined";
 
-    private MutableLiveData<Chat> _state = new MutableLiveData<>();
-    LiveData<Chat> state = _state;
+    private MutableLiveData<Chat> _chat = new MutableLiveData<>();
+    LiveData<Chat> chat = _chat;
+
+    private MutableLiveData<Boolean> _stateSend = new MutableLiveData<>();
+    LiveData<Boolean> stateSend = _stateSend;
+
+    private MutableLiveData<Boolean> _stateInput = new MutableLiveData<>();
+    LiveData<Boolean> stateInput = _stateInput;
 
     void initialClient(String userName) throws URISyntaxException {
-
+        _userName = userName;
         if (_socketClient == null) {
             _socketClient = new WebSocketClient(
                     new URI(DOMAIN_SOCKET + userName),
@@ -36,20 +43,20 @@ public class ChatViewModel extends ViewModel {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     Log.d("ws", "onOpen");
-                    _state.postValue(toChatConnectEntity(true));
+                    _chat.postValue(toChatConnectEntity(true));
                 }
 
                 @Override
                 public void onMessage(String message) {
                     Chat chatModel = gson.fromJson(message, Chat.class);
                     chatModel.setConnect(true);
-                    _state.postValue(chatModel);
+                    _chat.postValue(chatModel);
                 }
 
                 @Override
                 public void onClose(int code, String reason, boolean remote) {
                     super.onClosing(code, reason, remote);
-                    _state.postValue(toChatConnectEntity(false));
+                    _chat.postValue(toChatConnectEntity(false));
                 }
 
                 @Override
@@ -62,15 +69,27 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void sendMessage(String msg) {
-        if (msg != null && !msg.isEmpty()) {
-            _socketClient.send(msg);
+        try {
+            String jsonString = gson.toJson(new Chat(_userName, msg, 0, true));
+            _socketClient.send(jsonString);
+            _stateSend.postValue(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            _stateSend.postValue(false);
         }
+    }
+
+    public void isMsgValid(String msg) {
+        if (msg == null || msg.isEmpty())
+            _stateInput.setValue(false);
+        else
+            _stateInput.setValue(true);
     }
 
     public void disconnect() {
         if (_socketClient != null)
             _socketClient.close();
-        _state.setValue(toChatConnectEntity(false));
+        _chat.setValue(toChatConnectEntity(false));
     }
 
     @Override

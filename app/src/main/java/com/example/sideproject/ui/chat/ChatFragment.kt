@@ -17,6 +17,7 @@ import com.example.sideproject.R
 import com.example.sideproject.data.model.Chat
 import com.example.sideproject.data.remote.ServiceClient
 import com.example.sideproject.data.remote.user.UserRepository
+import com.example.sideproject.ui.login.afterTextChanged
 import com.example.sideproject.utils.RxTransFormers
 import kotlinx.android.synthetic.main.fragment_chat.*
 import java.net.URISyntaxException
@@ -24,9 +25,9 @@ import java.net.URISyntaxException
 class ChatFragment : Fragment() {
 
     private lateinit var mViewModel: ChatViewModel
-    private lateinit var userName: String
+    private lateinit var mAdapter: ChatListAdapter
 
-    private var mAdapter: ChatListAdapter = ChatListAdapter()
+    // TODO Memory Leak?
     private var mHandler: Handler = Handler(Handler.Callback { msg ->
         mAdapter.appendMsg(msg.obj as Chat)
         recyclerView.scrollToPosition((mAdapter.itemCount - 1))
@@ -37,10 +38,23 @@ class ChatFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
-        mViewModel.state.observe(this, Observer {
+
+        mViewModel.stateInput.observe(this, Observer {
+            val isValid = it ?: return@Observer
+            button_submit.isEnabled = isValid
+        })
+
+        mViewModel.stateSend.observe(this, Observer {
+            val isValid = it ?: return@Observer
+            if (isValid)
+                editText_msg.text.clear()
+        })
+
+        mViewModel.chat.observe(this, Observer {
             val chat = it ?: return@Observer
             if (chat.isConnect) {
                 val handlerMessage = Message.obtain()
@@ -51,21 +65,6 @@ class ChatFragment : Fragment() {
             }
         })
 
-        recyclerView.adapter = mAdapter
-        val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-
-        button_submit.setOnClickListener {
-            if (editText_msg.text.toString().isEmpty())
-                return@setOnClickListener
-            mViewModel.sendMessage(editText_msg.text.toString())
-        }
-    }
-
-    @SuppressLint("CheckResult")
-    override fun onStart() {
-        super.onStart()
         val repository = UserRepository(
             service = ServiceClient.getService(), userModel = roomDatabase.userModel())
         try {
@@ -75,11 +74,32 @@ class ChatFragment : Fragment() {
                     {
                         if (it != null)
                             mViewModel.initialClient(it.name)
+                            mAdapter = ChatListAdapter(it.name)
+                            initialView()
                     },
                     { e -> e.printStackTrace() })
         } catch (e: URISyntaxException) {
             e.printStackTrace()
         }
+    }
+
+    private fun initialView() {
+        recyclerView.adapter = mAdapter
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+
+        editText_msg.afterTextChanged {
+            mViewModel.isMsgValid(editText_msg.text.toString())
+        }
+
+        button_submit.setOnClickListener {
+            mViewModel.sendMessage(editText_msg.text.toString())
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     override fun onStop() {
