@@ -33,12 +33,11 @@ class ChatListAdapter(private val _userName : String) : RecyclerView.Adapter<Bas
                     .inflate(R.layout.list_item_msg_disconnect, parent, false)
                 DisconnectViewHolder(view)
             }
-            VIEW_TYPE_CHAT -> {
+            else -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.list_item_msg, parent, false)
                 ViewHolder(view)
             }
-            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 

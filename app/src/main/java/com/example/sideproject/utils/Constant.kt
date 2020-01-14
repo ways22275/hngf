@@ -3,7 +3,7 @@ package com.example.sideproject.utils
 object Constant {
 
     // region Retrofit Service
-    const val DOMAIN = "http://192.168.1.220:8080"
+    const val DOMAIN = "http://10.0.2.2:8080"
     const val HEADER_TYPE = "Content-Type"
     const val HEADER_ACCEPT = "Accept"
     const val HEADER_TOKEN = "Authorization"
@@ -21,7 +21,7 @@ object Constant {
     // endregion
 
     // region WebSocket
-    const val DOMAIN_SOCKET = "ws://192.168.1.46:8081/chat/"
+    const val DOMAIN_SOCKET = "ws://10.0.2.2:8081/chat/"
     // endregion
     
 }
